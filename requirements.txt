@@ -1,9 +1,9 @@
 streamlit
 tensorflow
 keras
-opencv-python
+huggingface_hub
+pillow
 numpy
-Pillow
-matplotlib
-gdown
+pandas
 plotly
+matplotlib
