@@ -10,6 +10,43 @@ import plotly.graph_objects as go
 import pandas as pd
 import io
 import os
+os.environ["KERAS_BACKEND"] = "tensorflow"  # or "jax" or "torch"
+import keras
+
+@st.cache_resource
+def load_model_from_hf():
+    """Load specific model from Hugging Face Hub"""
+    try:
+        st.info("Loading model 250|15.h5 from Hugging Face...")
+        
+        # Load specific model file from HF
+        model = keras.saving.load_model("hf://Ajay007001/Brain-Stroke-Prediction/model 250|15.h5")
+        
+        st.success("✅ Model 250|15 loaded successfully!")
+        return model
+        
+    except Exception as e:
+        st.error(f"❌ Error loading model: {str(e)}")
+        # Fallback: try with URL encoding
+        try:
+            st.info("Trying alternative loading method...")
+            from huggingface_hub import hf_hub_download
+            import tensorflow as tf
+            
+            model_path = hf_hub_download(
+                repo_id="Ajay007001/Brain-Stroke-Prediction",
+                filename="model 250|15.h5"
+            )
+            model = tf.keras.models.load_model(model_path)
+            st.success("✅ Model loaded with fallback method!")
+            return model
+        except Exception as e2:
+            st.error(f"❌ Fallback also failed: {str(e2)}")
+            return None
+
+# Example usage:
+# Load one of your models
+
 
 # Load model with error handling
 try:
