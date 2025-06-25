@@ -1,5 +1,8 @@
 streamlit
-tensorflow
+tensorflow==2.12.0
+keras
+opencv-python
 numpy
-pillow
+Pillow
 matplotlib
+gdown
