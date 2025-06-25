@@ -351,7 +351,9 @@ elif not upload and model_loaded:
 st.markdown("---")
 st.markdown("""
     <div style="text-align: center; color: gray; font-size: 14px;">
-    <p>Brain Stroke MRI Classifier v1.0 | Medical AI Tool</p>
-    <p>Model: VGG19-based (250x15) | Source: Hugging Face</p>
+        <p><strong>Brain Stroke MRI Classifier v1.0</strong> | Custom AI Model</p>
+        <p>Fine-tuned VGG19 architecture on medical MRI data | Developed by <a href ="https://ajayvasan.github.io/Portfolio/">Ajay Vasan</a></p>
+        <p>Model hosted on <a href="https://huggingface.co/Ajay007001/Brain-Stroke-Prediction" target="_blank">Hugging Face</a></p>
+        <p>Source code on <a href="https://github.com/AjayVasan/Brain-Stroke-Predictor" target="_blank">GitHub</a></p>
     </div>
     """, unsafe_allow_html=True)
