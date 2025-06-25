@@ -9,7 +9,7 @@ A custom-trained deep learning model to classify brain MRI images into various s
 ---
 
 ## 🌟 **Live Streamlit Demo**
-[](Images/Streamlit-Demo.png)
+[](Images/Images/Streamlit Demo.png)
 
 ### 👉 **[🚀 Launch the Interactive Web App](https://brain-stroke-predictor-ajayvasan.streamlit.app/)**
 
