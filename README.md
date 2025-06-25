@@ -149,7 +149,7 @@ Brain-Stroke-Predictor/
 - 🌐 **Portfolio**: [ajayvasan.github.io/Portfolio](https://ajayvasan.github.io/Portfolio)
 - 💼 **GitHub**: [@AjayVasan](https://github.com/AjayVasan)
 - 🤗 **Hugging Face**: [@Ajay007001](https://huggingface.co/Ajay007001)
-
+- 💼 **LinkedIn**: [@ajayvasan](https://www.linkedin.com/in/ajay-vasan)
 ---
 
 ## 📜 License
@@ -176,4 +176,4 @@ Give a ⭐ if this project helped you learn about medical AI and Streamlit deplo
 
 ---
 
-*Made with ❤️ and deployed with Streamlit*
+*Made with ❤️+🧠 and deployed with Streamlit*
