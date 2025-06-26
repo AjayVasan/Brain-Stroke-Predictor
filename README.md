@@ -24,6 +24,20 @@ A custom-trained deep learning model to classify brain MRI images into various s
 
 ---
 
+## 🧪 **Testing Images**
+
+### 👉 **[📁 Download Test Images from Google Drive](https://drive.google.com/drive/folders/1mJ4DzFvXmfQkP3YR3jpN5SyKJ4vekv2a?usp=drive_link)**
+
+**Ready-to-use brain MRI samples for testing:**
+- 🩸 **Hemorrhagic Stroke** samples
+- 🧠 **Ischemic Stroke** samples  
+- ✅ **No Stroke** samples
+- 📋 **Organized by category** for easy identification
+
+> Use these test images to explore the model's capabilities!
+
+---
+
 ## 📊 Project Overview
 
 | Feature              | Details |
@@ -136,6 +150,7 @@ Brain-Stroke-Predictor/
 | Resource | Link |
 |----------|------|
 | 🌐 **Live Streamlit App** | [brain-stroke-predictor-ajayvasan.streamlit.app](https://brain-stroke-predictor-ajayvasan.streamlit.app/) |
+| 🧪 **Testing Images** | [Google Drive - Test Samples](https://drive.google.com/drive/folders/1mJ4DzFvXmfQkP3YR3jpN5SyKJ4vekv2a?usp=drive_link) |
 | 🤗 **Hugging Face Model** | [Ajay007001/Brain-Stroke-Prediction](https://huggingface.co/Ajay007001/Brain-Stroke-Prediction) |
 | 💻 **GitHub Repository** | [AjayVasan/Brain-Stroke-Predictor](https://github.com/AjayVasan/Brain-Stroke-Predictor) |
 | 📊 **Dataset Source** | [Kaggle - Brain Stroke Dataset](https://www.kaggle.com/datasets/shuvokumarbasakbd/brain-stroke-dataset-colorized-teknofest-2021) |
