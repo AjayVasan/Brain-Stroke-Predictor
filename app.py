@@ -16,50 +16,117 @@ from huggingface_hub import hf_hub_download
 import tensorflow as tf
 
 @st.cache_resource
+# def load_model_from_hf():
+#     """Load specific model from Hugging Face Hub and show all status messages in one box"""
+#     log = []
+#     success = False
+#     try:
+#         log.append("🔄 Loading model `model 250|15.h5` from Hugging Face...")
+
+#         # Try direct Keras loading
+#         try:
+#             model = keras.saving.load_model("hf://Ajay007001/Brain-Stroke-Prediction/model 250|15.h5")
+#             log.append("✅ Model 250|15 loaded successfully with Keras!")
+#             success = True
+#             box_color = "info"
+#             return model
+#         except Exception as e1:
+#             log.append(f"⚠️ Keras direct loading failed:\n`{str(e1)}`")
+#             log.append("📦 Trying huggingface_hub fallback method...")
+
+#             # Try huggingface_hub fallback
+#             model_path = hf_hub_download(
+#                 repo_id="Ajay007001/Brain-Stroke-Prediction",
+#                 filename="model 250|15.h5",
+#                 cache_dir="./hf_cache"
+#             )
+#             model = tf.keras.models.load_model(model_path)
+#             log.append("✅ Model loaded successfully using huggingface_hub fallback!")
+#             success = True
+#             box_color = "success"
+#             return model
+
+#     except Exception as e2:
+#         log.append(f"❌ Fallback also failed:\n`{str(e2)}`")
+#         box_color = "error"
+
+#     # Show all messages in one colored box
+#     log_output = "\n\n".join(log)
+#     st.markdown(
+#         f"<div style='border-left: 6px solid #2c91e8; background-color: #f0f8ff; padding: 12px; border-radius: 6px;'>"
+#         f"<pre style='white-space: pre-wrap; word-wrap: break-word; font-size: 14px; color: #333;'>{log_output}</pre>"
+#         f"</div>",
+#         unsafe_allow_html=True
+#     )
+
+#     return None
 def load_model_from_hf():
     """Load specific model from Hugging Face Hub and show all status messages in one box"""
     log = []
     success = False
+    model = None
+    
     try:
-        log.append("🔄 Loading model `model 250|15.h5` from Hugging Face...")
-
-        # Try direct Keras loading
+        log.append("🔄 Loading model 'model 250|15.h5' from Hugging Face...")
+        
+        # Method 1: Try huggingface_hub download first (more reliable)
         try:
-            model = keras.saving.load_model("hf://Ajay007001/Brain-Stroke-Prediction/model 250|15.h5")
-            log.append("✅ Model 250|15 loaded successfully with Keras!")
-            success = True
-            box_color = "info"
-            return model
-        except Exception as e1:
-            log.append(f"⚠️ Keras direct loading failed:\n`{str(e1)}`")
-            log.append("📦 Trying huggingface_hub fallback method...")
-
-            # Try huggingface_hub fallback
+            from huggingface_hub import hf_hub_download
+            import tensorflow as tf
+            
+            log.append("📦 Downloading model file...")
             model_path = hf_hub_download(
                 repo_id="Ajay007001/Brain-Stroke-Prediction",
                 filename="model 250|15.h5",
                 cache_dir="./hf_cache"
             )
-            model = tf.keras.models.load_model(model_path)
-            log.append("✅ Model loaded successfully using huggingface_hub fallback!")
+            
+            log.append("🔧 Loading model with TensorFlow...")
+            # Try loading with compile=False to avoid architecture issues
+            model = tf.keras.models.load_model(model_path, compile=False)
+            log.append("✅ Model loaded successfully using huggingface_hub!")
             success = True
-            box_color = "success"
-            return model
-
-    except Exception as e2:
-        log.append(f"❌ Fallback also failed:\n`{str(e2)}`")
-        box_color = "error"
-
+            
+        except Exception as e1:
+            log.append(f"⚠️ HuggingFace Hub method failed:\n{str(e1)}")
+            
+            # Method 2: Try direct Keras loading with correct repo format
+            log.append("🔄 Trying direct Keras loading...")
+            try:
+                import keras
+                # Correct format - don't include filename in repo_id
+                model = keras.saving.load_model(
+                    "hf://Ajay007001/Brain-Stroke-Prediction",
+                    filename="model 250|15.h5",
+                    compile=False  # Skip compilation to avoid architecture issues
+                )
+                log.append("✅ Model loaded successfully with Keras!")
+                success = True
+                
+            except Exception as e2:
+                log.append(f"❌ Keras direct loading also failed:\n{str(e2)}")
+                
+    except Exception as e3:
+        log.append(f"❌ Unexpected error occurred:\n{str(e3)}")
+    
+    # Determine box color based on success
+    if success:
+        box_color = "#d4edda"  # Light green for success
+        border_color = "#28a745"  # Green border
+    else:
+        box_color = "#f8d7da"  # Light red for error
+        border_color = "#dc3545"  # Red border
+    
     # Show all messages in one colored box
     log_output = "\n\n".join(log)
     st.markdown(
-        f"<div style='border-left: 6px solid #2c91e8; background-color: #f0f8ff; padding: 12px; border-radius: 6px;'>"
+        f"<div style='border-left: 6px solid {border_color}; background-color: {box_color}; padding: 12px; border-radius: 6px;'>"
         f"<pre style='white-space: pre-wrap; word-wrap: break-word; font-size: 14px; color: #333;'>{log_output}</pre>"
         f"</div>",
         unsafe_allow_html=True
     )
-
-    return None
+    
+    return model
 
 
 # Standardized medical terminology
