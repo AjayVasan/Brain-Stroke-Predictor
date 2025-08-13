@@ -13,3 +13,5 @@ h5py==3.9.0
 huggingface_hub==0.20.0
 
 matplotlib
+
+plotly
