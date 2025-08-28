@@ -15,81 +15,81 @@ import keras
 from huggingface_hub import hf_hub_download
 import tensorflow as tf
 
-# @st.cache_resource
-# def load_model_from_hf():
-#     """Load specific model from Hugging Face Hub and show all status messages in one box"""
-#     log = []
-#     success = False
-#     try:
-#         log.append("🔄 Loading model `model 250|15.h5` from Hugging Face...")
-
-#         # Try direct Keras loading
-#         try:
-#             model = keras.saving.load_model("hf://Ajay007001/Brain-Stroke-Prediction/model 250|15.h5")
-#             log.append("✅ Model 250|15 loaded successfully with Keras!")
-#             success = True
-#             box_color = "info"
-#             return model
-#         except Exception as e1:
-#             log.append(f"⚠️ Keras direct loading failed:\n`{str(e1)}`")
-#             log.append("📦 Trying huggingface_hub fallback method...")
-
-#             # Try huggingface_hub fallback
-#             model_path = hf_hub_download(
-#                 repo_id="Ajay007001/Brain-Stroke-Prediction",
-#                 filename="model 250|15.h5",
-#                 cache_dir="./hf_cache"
-#             )
-#             model = tf.keras.models.load_model(model_path)
-#             log.append("✅ Model loaded successfully using huggingface_hub fallback!")
-#             success = True
-#             box_color = "success"
-#             return model
-
-#     except Exception as e2:
-#         log.append(f"❌ Fallback also failed:\n`{str(e2)}`")
-#         box_color = "error"
-
-#     # Show all messages in one colored box
-#     log_output = "\n\n".join(log)
-#     st.markdown(
-#         f"<div style='border-left: 6px solid #2c91e8; background-color: #f0f8ff; padding: 12px; border-radius: 6px;'>"
-#         f"<pre style='white-space: pre-wrap; word-wrap: break-word; font-size: 14px; color: #333;'>{log_output}</pre>"
-#         f"</div>",
-#         unsafe_allow_html=True
-#     )
-
-#     return None
-
 @st.cache_resource
 def load_model_from_hf():
-    """
-    Download the .h5 model from Hugging Face Hub and load it in TensorFlow/Keras.
-    Uses compile=False to avoid version deserialization issues, then recompiles for inference.
-    """
+    """Load specific model from Hugging Face Hub and show all status messages in one box"""
+    log = []
+    success = False
     try:
-        # Download the model file to a local path
-        model_path = hf_hub_download(
-            repo_id="Ajay007001/Brain-Stroke-Prediction",
-            filename="model 250|15.h5"
-        )
+        log.append("🔄 Loading model `model 250|15.h5` from Hugging Face...")
 
-        # Load without compiling first (avoids Keras 2↔3 batch_shape errors)
-        model = tf.keras.models.load_model(model_path, compile=False)
+        # Try direct Keras loading
+        try:
+            model = keras.saving.load_model("hf://Ajay007001/Brain-Stroke-Prediction/model 250|15.h5")
+            log.append("✅ Model 250|15 loaded successfully with Keras!")
+            success = True
+            box_color = "info"
+            return model
+        except Exception as e1:
+            log.append(f"⚠️ Keras direct loading failed:\n`{str(e1)}`")
+            log.append("📦 Trying huggingface_hub fallback method...")
 
-        # Recompile the model for prediction (based on model card: multiclass softmax)
-        model.compile(
-            optimizer="adam",
-            loss="sparse_categorical_crossentropy",
-            metrics=["accuracy"]
-        )
+            # Try huggingface_hub fallback
+            model_path = hf_hub_download(
+                repo_id="Ajay007001/Brain-Stroke-Prediction",
+                filename="model 250|15.h5",
+                cache_dir="./hf_cache"
+            )
+            model = tf.keras.models.load_model(model_path)
+            log.append("✅ Model loaded successfully using huggingface_hub fallback!")
+            success = True
+            box_color = "success"
+            return model
 
-        st.success("✅ Model loaded successfully from Hugging Face!")
-        return model
+    except Exception as e2:
+        log.append(f"❌ Fallback also failed:\n`{str(e2)}`")
+        box_color = "error"
 
-    except Exception as e:
-        st.error(f"❌ Failed to load model: {e}")
-        return None
+    # Show all messages in one colored box
+    log_output = "\n\n".join(log)
+    st.markdown(
+        f"<div style='border-left: 6px solid #2c91e8; background-color: #f0f8ff; padding: 12px; border-radius: 6px;'>"
+        f"<pre style='white-space: pre-wrap; word-wrap: break-word; font-size: 14px; color: #333;'>{log_output}</pre>"
+        f"</div>",
+        unsafe_allow_html=True
+    )
+
+    return None
+
+# @st.cache_resource
+# def load_model_from_hf():
+#     """
+#     Download the .h5 model from Hugging Face Hub and load it in TensorFlow/Keras.
+#     Uses compile=False to avoid version deserialization issues, then recompiles for inference.
+#     """
+#     try:
+#         # Download the model file to a local path
+#         model_path = hf_hub_download(
+#             repo_id="Ajay007001/Brain-Stroke-Prediction",
+#             filename="model 250|15.h5"
+#         )
+
+#         # Load without compiling first (avoids Keras 2↔3 batch_shape errors)
+#         model = tf.keras.models.load_model(model_path, compile=False)
+
+#         # Recompile the model for prediction (based on model card: multiclass softmax)
+#         model.compile(
+#             optimizer="adam",
+#             loss="sparse_categorical_crossentropy",
+#             metrics=["accuracy"]
+#         )
+
+#         st.success("✅ Model loaded successfully from Hugging Face!")
+#         return model
+
+#     except Exception as e:
+#         st.error(f"❌ Failed to load model: {e}")
+#         return None
 
 # Standardized medical terminology
 class_labels = [
