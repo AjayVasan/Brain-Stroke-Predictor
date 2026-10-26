@@ -1,16 +1,18 @@
-streamlit==1.32.0
+streamlit==1.40.2
 
-tensorflow==2.15.1
+tensorflow==2.16.2
 
-pillow==10.0.0
+keras>=3.3.3,<3.4
 
-numpy==1.24.3
+pillow==10.4.0
 
-pandas==2.0.0
+numpy==1.26.4
 
-h5py==3.9.0
+pandas==2.2.2
 
-huggingface_hub==0.20.0
+h5py==3.11.0
+
+huggingface_hub==0.24.6
 
 matplotlib
 

@@ -23,31 +23,17 @@ def load_model_from_hf():
     try:
         log.append("🔄 Loading model `model 250|15.h5` from Hugging Face...")
 
-        # Try direct Keras loading
-        try:
-            model = keras.saving.load_model("hf://Ajay007001/Brain-Stroke-Prediction/model 250|15.h5")
-            log.append("✅ Model 250|15 loaded successfully with Keras!")
-            success = True
-            box_color = "info"
-            return model
-        except Exception as e1:
-            log.append(f"⚠️ Keras direct loading failed:\n`{str(e1)}`")
-            log.append("📦 Trying huggingface_hub fallback method...")
-
-            # Try huggingface_hub fallback
-            model_path = hf_hub_download(
-                repo_id="Ajay007001/Brain-Stroke-Prediction",
-                filename="model 250|15.h5",
-                cache_dir="./hf_cache"
-            )
-            model = tf.keras.models.load_model(model_path)
-            log.append("✅ Model loaded successfully using huggingface_hub fallback!")
-            success = True
-            box_color = "success"
-            return model
+        # Model was saved with Keras 3; hf:// loading isn't supported for .h5, so download first
+        model_path = hf_hub_download(
+            repo_id="Ajay007001/Brain-Stroke-Prediction",
+            filename="model 250|15.h5",
+            cache_dir="./hf_cache"
+        )
+        model = keras.saving.load_model(model_path)
+        return model
 
     except Exception as e2:
-        log.append(f"❌ Fallback also failed:\n`{str(e2)}`")
+        log.append(f"❌ Model loading failed:\n`{str(e2)}`")
         box_color = "error"
 
     # Show all messages in one colored box
